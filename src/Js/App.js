@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../Css/App.css';
+import axios from 'axios';
 
 import Friends from './Friends';
 import Leaderboard from './Leaderboard';
@@ -27,22 +28,27 @@ function App() {
   const [app, setApp] = useState(false);
 
   useEffect(() => {
+    const fetchUserData = async (userId) => {
+      try {
+        const response = await axios.get(`/get-user-data?userId=${userId}`);
+        const data = response.data;
+        if (response.status === 200) {
+          setCoins(data.coins);
+        } else {
+          console.error('Ошибка при получении данных пользователя:', data.error);
+        }
+      } catch (error) {
+        console.error('Ошибка при получении данных пользователя:', error);
+      }
+    };
+
     if (window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
 
       const userId = new URLSearchParams(window.location.search).get('userId');
       if (userId) {
-        fetch('/get-coins', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ userId: Number(userId) })
-        })
-          .then(response => response.json())
-          .then(data => setCoins(data.coins))
-          .catch(error => console.error('Error fetching coins:', error));
+        fetchUserData(userId);
       }
     }
   }, []);
@@ -170,7 +176,6 @@ function App() {
           </div>
         </div>
       </div>
-      
 
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
