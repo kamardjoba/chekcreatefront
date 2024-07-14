@@ -18,8 +18,7 @@ import Play from '../IMG/All_Logo/Play.png';
 import Octo from '../IMG/All_Logo/Octo.png';
 
 function App() {
-  const Coin = 128.293;
-
+  const [coins, setCoins] = useState(0);
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
 
@@ -31,6 +30,20 @@ function App() {
     if (window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
+
+      const userId = new URLSearchParams(window.location.search).get('userId');
+      if (userId) {
+        fetch('/get-coins', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userId: Number(userId) })
+        })
+          .then(response => response.json())
+          .then(data => setCoins(data.coins))
+          .catch(error => console.error('Error fetching coins:', error));
+      }
     }
   }, []);
 
@@ -91,7 +104,7 @@ function App() {
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
-        <p>{Coin} OCTIES</p>
+        <p>{coins} OCTIES</p>
       </div>
       <div className='Menu'>
         <div className='MenuBorder'>
