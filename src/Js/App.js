@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-user-data`, {userId});
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
         const data = response.data;
         if (response.status === 200) {
           setCoins(data.coins);
@@ -41,17 +41,18 @@ function App() {
         console.error('Ошибка при получении данных пользователя:', error);
       }
     };
-
+  
     if (window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
-
+  
       const userId = new URLSearchParams(window.location.search).get('userId');
       if (userId) {
         fetchUserData(userId);
       }
     }
   }, []);
+  
 
   const handleBackButtonSetup = useCallback((onClick) => {
     if (window.Telegram.WebApp) {
