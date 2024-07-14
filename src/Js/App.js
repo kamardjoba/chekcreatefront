@@ -26,11 +26,11 @@ function App() {
   const [FriendsAnim, setFriendsAnim] = useState(false);
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
-
+  const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
+        const response = await axios.get(`${REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
         const data = response.data;
         if (response.status === 200) {
           setCoins(data.coins);
