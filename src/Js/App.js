@@ -28,6 +28,16 @@ function App() {
   const [app, setApp] = useState(false);
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
   useEffect(() => {
+    if (window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.expand();
+  
+      const userId = new URLSearchParams(window.location.search).get('userId');
+      if (userId) {
+        fetchUserData(userId);
+      }
+    }
+    
     const fetchUserData = async (userId) => {
       try {
         const response = await axios.get(`${REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
@@ -42,15 +52,7 @@ function App() {
       }
     };
   
-    if (window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.expand();
-  
-      const userId = new URLSearchParams(window.location.search).get('userId');
-      if (userId) {
-        fetchUserData(userId);
-      }
-    }
+   
   }, []);
   
 
