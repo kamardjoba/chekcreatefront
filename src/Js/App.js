@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get(`/get-user-data?userId=${userId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/get-user-data`, {userId});
         const data = response.data;
         if (response.status === 200) {
           setCoins(data.coins);
