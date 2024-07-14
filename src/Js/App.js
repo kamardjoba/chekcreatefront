@@ -42,15 +42,7 @@ function App() {
       }
     };
   
-    if (window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.expand();
-  
-      const userId = new URLSearchParams(window.location.search).get('userId');
-      if (userId) {
-        fetchUserData(userId);
-      }
-    }
+    
   }, []);
   
 
