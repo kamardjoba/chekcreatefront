@@ -170,6 +170,7 @@ function App() {
           </div>
         </div>
       </div>
+      
 
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
