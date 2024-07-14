@@ -27,6 +27,23 @@ function App() {
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
+  
+
+  const fetchUserData = async (userId) => {
+    try {
+      const response = await axios.get(`${REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
+      const data = response.data;
+      if (response.status === 200) {
+        setCoins(data.coins);
+      } else {
+        console.error('Ошибка при получении данных пользователя:', data.error);
+      }
+    } catch (error) {
+      console.error('Ошибка при получении данных пользователя:', error);
+    }
+  };
+  
+
   useEffect(() => {
     if (window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
@@ -37,23 +54,8 @@ function App() {
         fetchUserData(userId);
       }
     }
-    
-    const fetchUserData = async (userId) => {
-      try {
-        const response = await axios.get(`${REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
-        const data = response.data;
-        if (response.status === 200) {
-          setCoins(data.coins);
-        } else {
-          console.error('Ошибка при получении данных пользователя:', data.error);
-        }
-      } catch (error) {
-        console.error('Ошибка при получении данных пользователя:', error);
-      }
-    };
-  
-   
   }, []);
+  
   
 
   const handleBackButtonSetup = useCallback((onClick) => {
