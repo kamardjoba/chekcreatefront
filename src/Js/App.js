@@ -23,6 +23,7 @@ import invite from '../IMG/All_Logo/Invite_png.png';
 
 function App() {
   const [coins, setCoins] = useState(0);
+  const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
@@ -40,6 +41,7 @@ function App() {
       const data = response.data;
       if (response.status === 200) {
         setCoins(data.coins);
+        setHasTelegramPremium(data.hasTelegramPremium);
       } else {
         console.error('Ошибка при получении данных пользователя:', data.error);
       }
@@ -48,7 +50,6 @@ function App() {
     }
   };
   
-
   useEffect(() => {
     if (window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
@@ -131,7 +132,7 @@ function App() {
               <img src={TS2} alt='TS2' /> <p id='txt'>Telegram Premium</p>
             </div>
             <div className='tsPhoto'>
-              <p>+500 OCTIES</p>
+              <p>+{hasTelegramPremium ? 500 : 0} OCTIES</p>
             </div>
           </div>
 
