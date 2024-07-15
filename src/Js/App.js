@@ -201,7 +201,7 @@ function App() {
 
       {CheckOpen && (<Check setCheckOpen={setCheckOpen}/>)}
 
-      {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} userId={userId} />)}
+      {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
       {isFrendsOpen && (
         <Friends
