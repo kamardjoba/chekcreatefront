@@ -99,9 +99,10 @@ const Friends = ({ FriendsAnim, invite, referralCode, telegramLink }) => {
                 console.error('Ошибка при получении данных о рефералах:', error);
             }
         };
-
+    
         fetchReferredUsers();
     }, [referralCode]);
+    
 
     const handleShareLink = () => {
                 const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(telegramLink)}&text=${encodeURIComponent('Присоединяйся к нашему приложению и получай бонусы!')}`;
