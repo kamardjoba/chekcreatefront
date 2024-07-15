@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../Css/App.css';
+import axios from 'axios';
 
 import Friends from './Friends';
 import Leaderboard from './Leaderboard';
