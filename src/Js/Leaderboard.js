@@ -35,9 +35,13 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         console.error('Ошибка при загрузке позиции пользователя:', error);
       }
     };
-  
+
     fetchLeaderboard();
-    fetchUserRank();
+    if (userId) {
+      fetchUserRank();
+    } else {
+      console.error('userId не определен');
+    }
   }, [userId]);
 
   const getMedal = (index) => {
