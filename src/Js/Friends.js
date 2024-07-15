@@ -82,9 +82,12 @@
 
 import React, { useState, useEffect } from 'react';
 import '../Css/Friends.css';
+import axios from 'axios';
+
 
 const Friends = ({ FriendsAnim, invite,  referralCode }) => {
     const [referredUsers, setReferredUsers] = useState([]);
+    const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
     useEffect(() => {
         // Функция для получения данных о рефералах с сервера
@@ -99,6 +102,11 @@ const Friends = ({ FriendsAnim, invite,  referralCode }) => {
 
         fetchReferredUsers();
     }, [referralCode]);
+
+    const handleShareLink = () => {
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(telegramLink)}&text=${encodeURIComponent('Присоединяйся к нашему приложению и получай бонусы!')}`;
+                window.open(telegramUrl, '_blank');
+            };
 
     return (
         <div className={`Fr_Window ${FriendsAnim ? 'fade-out' : ''}`}>
