@@ -76,15 +76,15 @@ function App() {
       console.error('Ошибка при получении данных пользователя:', error);
     }
   };
+
   useEffect(() => {
     const userId = new URLSearchParams(window.location.search).get('userId');
     if (userId) {
-        fetchUserData(userId);
+      fetchUserData(userId);
     } else {
-        console.error('userId не найден в URL');
+      console.error('userId не найден в URL');
     }
-}, []);
-
+  }, []);
 
   const Tg_Channel_Open_chek = () => {
     window.location.href = TG_CHANNEL_LINK;
@@ -103,21 +103,23 @@ function App() {
     setFriendsAnim(false);
     setLeaderboardAnim(true);
     setTimeout(() => { setIsLeaderboardOpen(false); }, 300);
-    setApp(true);}
+    setApp(true);
+  };
 
   const handleLeaderboard = () => {
-      setIsLeaderboardOpen(true);
-      setFriendsAnim(true);
-      setLeaderboardAnim(false);
-      setTimeout(() => { setIsFrendsOpen(false); }, 300);
-      setApp(true);
-  }
-  
+    setIsLeaderboardOpen(true);
+    setFriendsAnim(true);
+    setLeaderboardAnim(false);
+    setTimeout(() => { setIsFrendsOpen(false); }, 300);
+    setApp(true);
+  };
 
   const handleFirstPageClose = () => {
     setFPage(false);
     localStorage.setItem('FPage', 'false');
   };
+
+  const userId = new URLSearchParams(window.location.search).get('userId');
 
   return (
     <div className="App">
@@ -129,7 +131,7 @@ function App() {
           <p>Your Score</p>
         </div>
       </div>
-      <div className="main" onClick={(event) => {localStorage.clear();}}>
+      <div className="main" onClick={(event) => { localStorage.clear(); }}>
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
@@ -202,17 +204,17 @@ function App() {
 
       {FPage && (<First onClose={handleFirstPageClose} setCheckOpen={setCheckOpen} />)}
 
-      {CheckOpen && (<Check setCheckOpen={setCheckOpen}/>)}
+      {CheckOpen && (<Check setCheckOpen={setCheckOpen} />)}
 
       {isLeaderboardOpen && <Leaderboard LeaderboardAnim={LeaderboardAnim} userId={userId} />}
 
       {isFrendsOpen && (
         <Friends
-         FriendsAnim={FriendsAnim}
-         invite={invite} 
-         referralCode={referralCode}
+          FriendsAnim={FriendsAnim}
+          invite={invite}
+          referralCode={referralCode}
           telegramLink={telegramLink}
-         />)}
+        />)}
 
     </div>
   );
