@@ -149,7 +149,7 @@ function App() {
               <img src={TS2} alt='TS2' /> <p id='txt'>Telegram Premium</p>
             </div>
             <div className='tsPhoto'>
-              <p>+{subscriptionCoins} OCTIES</p>
+              <p>+{hasTelegramPremium ? 500 : 0} OCTIES</p>
             </div>
           </div>
 
@@ -158,7 +158,7 @@ function App() {
               <img src={TS3} alt='TS3' /> <p id='txt'>Channel Subscription</p>
             </div>
             <div className='tsPhoto'>
-              <p>+{hasCheckedSubscription ? 1000 : 0} OCTIES</p>
+              <p>+{subscriptionCoins} OCTIES</p>
             </div>
           </div>
 
