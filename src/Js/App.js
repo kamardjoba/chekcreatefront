@@ -40,7 +40,7 @@ function App() {
 
   const fetchUserData = async (userId) => {
     try {
-      const response = await axios.get(`${REACT_APP_BACKEND_URL}/get-user-data`, { params: { userId } });
+      const response = await axios.post(`${REACT_APP_BACKEND_URL}/get-coins`, { userId });
       const data = response.data;
       if (response.status === 200) {
         setCoins(data.coins);
@@ -114,7 +114,7 @@ function App() {
           <p id='up'>OCTIES COMMUNITY</p>
           <p id='dp'>Home for Telegram OCs</p>
           <div className='MenuBtn'>
-            <button  onClick={Tg_Channel_Open_chek}>Join</button>
+            <button onClick={Tg_Channel_Open_chek}>Join</button>
             <p>+ 1000 OCTIES</p>
           </div>
         </div>
@@ -176,7 +176,7 @@ function App() {
 
       {FPage && (<First onClose={handleFirstPageClose} setCheckOpen={setCheckOpen} />)}
 
-      {CheckOpen && (<Check  setCheckOpen={setCheckOpen}/>)}
+      {CheckOpen && (<Check setCheckOpen={setCheckOpen}/>)}
 
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
