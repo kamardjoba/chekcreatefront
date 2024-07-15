@@ -1,12 +1,27 @@
 import React from 'react';
-import '../Css/Friends.css'
+import '../Css/Friends.css';
 
 import ib from '../IMG/Av/IB.png';
 import k from '../IMG/Av/K.png';
 import g4 from '../IMG/Av/G4.png';
 import s from '../IMG/Av/S.png';
 
-const Friends = ({FriendsAnim, invite}) => {
+const Friends = ({ FriendsAnim, invite, referralCode, telegramLink }) => {
+
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(telegramLink)
+          .then(() => {
+            alert('Ссылка скопирована в буфер обмена!');
+          })
+          .catch(err => {
+            console.error('Ошибка копирования ссылки:', err);
+          });
+    };
+    
+    const handleShareLink = () => {
+        const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(telegramLink)}&text=${encodeURIComponent('Присоединяйся к нашему приложению и получай бонусы!')}`;
+        window.open(telegramUrl, '_blank');
+    };
 
     return (
         <div className={`Fr_Window ${FriendsAnim? 'fade-out' : ''}`}>
@@ -18,15 +33,17 @@ const Friends = ({FriendsAnim, invite}) => {
             </div>
             <div className='Fr_InviteBtn'>
                 <div className='BTNInvete'>
-                    <p>Invite friends</p>
+                    <p onClick={handleShareLink}>Invite friends</p>
                     <p id='Fr_dark'>+10% of your <br/>friend’s age</p>
+                </div>
+                <div className='BTNInvete'>
+                    <p onClick={handleCopyLink}>Copy Link</p>
                 </div>
             </div>
             <div className='Fr_Friends'>
                 <p>4 friends</p>
             </div>
             <div className='Fr_list'>
-
                 <div className='Fr_Frend'>
                     <div className='FrPhoto'>
                         <img src={ib} alt='ib' /> <p id='txt'>ivanbahranui</p>
@@ -35,7 +52,6 @@ const Friends = ({FriendsAnim, invite}) => {
                         <p>+1,228 OCTIES</p>
                     </div>
                 </div>
-
                 <div className='Fr_Frend'>
                     <div className='FrPhoto'>
                         <img src={k} alt='k' /> <p id='txt'>kalogrivy</p>
@@ -44,7 +60,6 @@ const Friends = ({FriendsAnim, invite}) => {
                         <p>+38 OCTIES</p>
                     </div>
                 </div>
-
                 <div className='Fr_Frend'>
                     <div className='FrPhoto'>
                         <img src={g4} alt='g4' /> <p id='txt'>g41111ss</p>
@@ -53,7 +68,6 @@ const Friends = ({FriendsAnim, invite}) => {
                         <p>+219 OCTIES</p>
                     </div>
                 </div>
-
                 <div className='Fr_Frend'>
                     <div className='FrPhoto'>
                         <img src={s} alt='s' /> <p id='txt'>Aferist_5</p>
@@ -62,7 +76,6 @@ const Friends = ({FriendsAnim, invite}) => {
                         <p>+838 OCTIES</p>
                     </div>
                 </div>
-                
             </div>
         </div>
     );

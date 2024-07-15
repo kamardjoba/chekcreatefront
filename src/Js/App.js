@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../Css/App.css';
 import axios from 'axios';
 
@@ -21,11 +21,15 @@ import Play from '../IMG/All_Logo/Play.png';
 import Octo from '../IMG/All_Logo/Octo.png';
 import invite from '../IMG/All_Logo/Invite_png.png';
 
+const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
+
 function App() {
   const [coins, setCoins] = useState(0);
   const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
   const [accountAgeCoins, setAccountAgeCoins] = useState(0);
   const [subscriptionCoins, setSubscriptionCoins] = useState(0);
+  const [referralCode, setReferralCode] = useState('');
+  const [telegramLink, setTelegramLink] = useState('');
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
@@ -36,8 +40,6 @@ function App() {
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
   const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo";
-  const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
-
 
   const fetchUserData = async (userId) => {
     try {
@@ -46,7 +48,6 @@ function App() {
       if (response.status === 200) {
         setCoins(data.coins);
         setHasTelegramPremium(data.hasTelegramPremium);
-       
 
         // Calculate coins for account age and subscription separately
         const accountCreationDate = new Date(data.accountCreationDate);
@@ -58,6 +59,16 @@ function App() {
 
         setAccountAgeCoins(accountAgeCoins);
         setSubscriptionCoins(subscriptionCoins);
+
+        // Fetch referral code and link
+        const referralResponse = await axios.post(`${REACT_APP_BACKEND_URL}/generate-referral`, { userId });
+        const referralData = referralResponse.data;
+        if (referralResponse.status === 200) {
+          setReferralCode(referralData.referralCode);
+          setTelegramLink(referralData.telegramLink);
+        } else {
+          console.error('Ошибка при получении реферальных данных:', referralData.message);
+        }
       } else {
         console.error('Ошибка при получении данных пользователя:', data.error);
       }
@@ -192,7 +203,7 @@ function App() {
 
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
-      {isFrendsOpen && (<Friends FriendsAnim={FriendsAnim} invite={invite} />)}
+      {isFrendsOpen && (<Friends FriendsAnim={FriendsAnim} invite={invite} referralCode={referralCode} telegramLink={telegramLink} />)}
 
     </div>
   );
