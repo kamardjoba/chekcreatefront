@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Css/Leaderboard.css';
+import logo from '../IMG/All_Logo/LBoard.png';
 
 const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
@@ -70,7 +71,7 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
       <div className='Lb_Menu'>
         <div className='LbBorder'>
           <div className='Lb_Logo'>
-            <img src='/path/to/logo.png' alt='logo'/>
+             <img src={logo} alt='logo'/>
           </div>
           <div className='Lb_Text'>
             <p>🥇The 1st holder will get 400,000 OCTIES</p>
