@@ -159,7 +159,7 @@ function App() {
               <img src={TS2} alt='TS2' /> <p id='txt'>Telegram Premium</p>
             </div>
             <div className='tsPhoto'>
-              <p>+{hasTelegramPremium ? 500 : 300} OCTIES</p>
+              <p>+{hasTelegramPremium ? 500 : 0} OCTIES</p>
             </div>
           </div>
 
@@ -203,7 +203,13 @@ function App() {
 
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
-      {isFrendsOpen && (<Friends FriendsAnim={FriendsAnim} invite={invite} referralCode={referralCode} telegramLink={telegramLink} />)}
+      {isFrendsOpen && (
+        <Friends
+         FriendsAnim={FriendsAnim}
+         invite={invite} 
+         referralCode={referralCode}
+          telegramLink={telegramLink}
+         />)}
 
     </div>
   );
