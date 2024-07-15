@@ -25,7 +25,7 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         console.error('Ошибка при загрузке лидерборда:', error);
       }
     };
-
+  
     const fetchUserRank = async () => {
       try {
         console.log(`Fetching rank for userId: ${userId}`); // Логирование userId
@@ -40,13 +40,13 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         console.error('Ошибка при загрузке позиции пользователя:', error);
       }
     };
-    
-    useEffect(() => {
-      fetchLeaderboard();
-      fetchUserRank();
-    }, [userId]);
-    
+  
+    fetchLeaderboard();
+    fetchUserRank();
   }, [userId]);
+
+
+  
 
   const getMedal = (index) => {
     switch (index) {
@@ -80,9 +80,9 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         </div>
 
         <div className='Lb_inside'>
-          <div className='LbPhoto'>
-            <img src={ib} alt='ib'/><p> Current User <br/><span id='LbColor'>{userRank ? `Rank: ${userRank}` : 'Loading...'}</span></p>
-          </div>
+        <div className='LbPhoto'>
+             <img src={ib} alt='ib'/><p> Current User <br/><span id='LbColor'>{userRank ? `Rank: ${userRank}` : 'Loading...'}</span></p>
+        </div>
         </div>
       
         <div className='Lb_Liders'>
