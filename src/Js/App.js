@@ -76,7 +76,6 @@ function App() {
       console.error('Ошибка при получении данных пользователя:', error);
     }
   };
-
   useEffect(() => {
     const userId = new URLSearchParams(window.location.search).get('userId');
     if (userId) {
@@ -85,15 +84,6 @@ function App() {
       console.error('userId не найден в URL');
     }
   }, []);
-  
-  const handleLeaderboard = () => {
-    setIsLeaderboardOpen(true);
-    setFriendsAnim(true);
-    setLeaderboardAnim(false);
-    setTimeout(() => { setIsFrendsOpen(false); }, 300);
-    setApp(true);
-  }
-
 
   const Tg_Channel_Open_chek = () => {
     window.location.href = TG_CHANNEL_LINK;
@@ -114,7 +104,19 @@ function App() {
     setTimeout(() => { setIsLeaderboardOpen(false); }, 300);
     setApp(true);}
 
+  const handleLeaderboard = () => {
+      setIsLeaderboardOpen(true);
+      setFriendsAnim(true);
+      setLeaderboardAnim(false);
+      setTimeout(() => { setIsFrendsOpen(false); }, 300);
+      setApp(true);
+  }
+  
 
+  const handleFirstPageClose = () => {
+    setFPage(false);
+    localStorage.setItem('FPage', 'false');
+  };
 
   return (
     <div className="App">
