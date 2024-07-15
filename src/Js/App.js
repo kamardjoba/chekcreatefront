@@ -79,11 +79,12 @@ function App() {
   useEffect(() => {
     const userId = new URLSearchParams(window.location.search).get('userId');
     if (userId) {
-      fetchUserData(userId);
+        fetchUserData(userId);
     } else {
-      console.error('userId не найден в URL');
+        console.error('userId не найден в URL');
     }
-  }, []);
+}, []);
+
 
   const Tg_Channel_Open_chek = () => {
     window.location.href = TG_CHANNEL_LINK;
@@ -203,7 +204,7 @@ function App() {
 
       {CheckOpen && (<Check setCheckOpen={setCheckOpen}/>)}
 
-      {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
+      {isLeaderboardOpen && <Leaderboard LeaderboardAnim={LeaderboardAnim} userId={userId} />}
 
       {isFrendsOpen && (
         <Friends
