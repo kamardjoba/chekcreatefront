@@ -1,30 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import '../Css/App.css';
-import axios from 'axios';
+// Обновленный код в App.js
 
-import Friends from './Friends';
-import Leaderboard from './Leaderboard';
-import First from './Firstpage';
-import Check from './Checking';
-
-import TS1 from '../IMG/TaskIcon/TS1.png';
-import TS2 from '../IMG/TaskIcon/TS2.png';
-import TS3 from '../IMG/TaskIcon/TS3.png';
-import TS4 from '../IMG/TaskIcon/TS4.png';
-
-import IconHome from '../IMG/LowerIcon/Home.png';
-import IconLeaderboard from '../IMG/LowerIcon/Leaderboard.png';
-import IconFriends from '../IMG/LowerIcon/Friends.png';
-
-import Logo from '../IMG/All_Logo/Logo.png';
-import Play from '../IMG/All_Logo/Play.png';
-import Octo from '../IMG/All_Logo/Octo.png';
-import invite from '../IMG/All_Logo/Invite_png.png';
-
-const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
-
-function App() {
+const App = () => {
   const [coins, setCoins] = useState(0);
+  const [userId, setUserId] = useState(null); // Новый стейт для хранения userId
   const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
   const [accountAgeCoins, setAccountAgeCoins] = useState(0);
   const [subscriptionCoins, setSubscriptionCoins] = useState(0);
@@ -47,6 +25,7 @@ function App() {
       const data = response.data;
       if (response.status === 200) {
         setCoins(data.coins);
+        setUserId(userId); // Устанавливаем userId в стейт
         setHasTelegramPremium(data.hasTelegramPremium);
 
         // Calculate coins for account age and subscription separately
@@ -84,7 +63,6 @@ function App() {
     }
   }, []);
 
-
   const Tg_Channel_Open_chek = () => {
     window.location.href = TG_CHANNEL_LINK;
   };
@@ -102,14 +80,16 @@ function App() {
     setFriendsAnim(false);
     setLeaderboardAnim(true);
     setTimeout(() => { setIsLeaderboardOpen(false); }, 300);
-    setApp(true);}
+    setApp(true);
+  };
 
   const handleLeaderboard = () => {
     setIsLeaderboardOpen(true);
     setFriendsAnim(true);
     setLeaderboardAnim(false);
     setTimeout(() => { setIsFrendsOpen(false); }, 300);
-    setApp(true);}
+    setApp(true);
+  };
 
   const handleFirstPageClose = () => {
     setFPage(false);
@@ -201,18 +181,18 @@ function App() {
 
       {CheckOpen && (<Check setCheckOpen={setCheckOpen}/>)}
 
-      {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
+      {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} userId={userId} />)}
 
       {isFrendsOpen && (
         <Friends
          FriendsAnim={FriendsAnim}
          invite={invite} 
          referralCode={referralCode}
-          telegramLink={telegramLink}
+         telegramLink={telegramLink}
          />)}
 
     </div>
   );
-}
+};
 
 export default App;
