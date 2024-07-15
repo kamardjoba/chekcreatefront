@@ -24,7 +24,7 @@ import invite from '../IMG/All_Logo/Invite_png.png';
 function App() {
   const [coins, setCoins] = useState(0);
   const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
-  const [hasCheckedSubscription, setHasCheckedSubscription] = useState(false);
+  const [ setHasCheckedSubscription] = useState(false);
   const [accountAgeCoins, setAccountAgeCoins] = useState(0);
   const [subscriptionCoins, setSubscriptionCoins] = useState(0);
 
