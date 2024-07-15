@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Css/App.css';
-import axios from 'axios';
 
 import Friends from './Friends';
 import Leaderboard from './Leaderboard';
+import First from './Firstpage';
+import Check from './Checking';
 
 import TS1 from '../IMG/TaskIcon/TS1.png';
 import TS2 from '../IMG/TaskIcon/TS2.png';
@@ -17,17 +18,20 @@ import IconFriends from '../IMG/LowerIcon/Friends.png';
 import Logo from '../IMG/All_Logo/Logo.png';
 import Play from '../IMG/All_Logo/Play.png';
 import Octo from '../IMG/All_Logo/Octo.png';
+import invite from '../IMG/All_Logo/Invite_png.png';
 
 function App() {
   const [coins, setCoins] = useState(0);
+
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
+  const [FPage, setFPage] = useState(() => localStorage.getItem('FPage') !== 'false');
+  const [CheckOpen, setCheckOpen] = useState(false);
 
   const [FriendsAnim, setFriendsAnim] = useState(false);
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
-  
 
   const fetchUserData = async (userId) => {
     try {
@@ -55,17 +59,6 @@ function App() {
       }
     }
   }, []);
-  
-  
-
-  const handleBackButtonSetup = useCallback((onClick) => {
-    if (window.Telegram.WebApp) {
-      const backButton = window.Telegram.WebApp.BackButton;
-      backButton.show();
-      backButton.offClick();
-      backButton.onClick(onClick);
-    }
-  }, []);
 
   const handleHome = () => {
     setFriendsAnim(true);
@@ -75,31 +68,24 @@ function App() {
     setApp(false);
   };
 
-  const handleFrends = useCallback(() => {
+  const handleFrends = () => {
     setIsFrendsOpen(true);
     setFriendsAnim(false);
     setLeaderboardAnim(true);
     setTimeout(() => { setIsLeaderboardOpen(false); }, 300);
-    handleBackButtonSetup(() => {
-      if (window.Telegram.WebApp.BackButton.isVisible) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    });
-    setApp(true);
-  }, [handleBackButtonSetup]);
+    setApp(true);}
 
-  const handleLeaderboard = useCallback(() => {
+  const handleLeaderboard = () => {
     setIsLeaderboardOpen(true);
     setFriendsAnim(true);
     setLeaderboardAnim(false);
     setTimeout(() => { setIsFrendsOpen(false); }, 300);
-    handleBackButtonSetup(() => {
-      if (window.Telegram.WebApp.BackButton.isVisible) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    });
-    setApp(true);
-  }, [handleBackButtonSetup]);
+    setApp(true);}
+
+  const handleFirstPageClose = () => {
+    setFPage(false);
+    localStorage.setItem('FPage', 'false');
+  };
 
   return (
     <div className="App">
@@ -111,11 +97,11 @@ function App() {
           <p>Your Score</p>
         </div>
       </div>
-      <div className="main">
+      <div className="main" onClick={(event) => {localStorage.clear();}}>
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
-        <p>{coins} OCTIES</p>
+        <p>122000 OCTIES</p>
       </div>
       <div className='Menu'>
         <div className='MenuBorder'>
@@ -135,7 +121,7 @@ function App() {
               <img src={TS1} alt='TS1' /> <p id='txt'>Account age</p>
             </div>
             <div className='tsPhoto'>
-              <p>+838 OCTIES</p>
+              <p>{coins} OCTIES</p>
             </div>
           </div>
 
@@ -182,9 +168,13 @@ function App() {
         </div>
       </div>
 
+      {FPage && (<First onClose={handleFirstPageClose} setCheckOpen={setCheckOpen} />)}
+
+      {CheckOpen && (<Check  setCheckOpen={setCheckOpen}/>)}
+
       {isLeaderboardOpen && (<Leaderboard LeaderboardAnim={LeaderboardAnim} />)}
 
-      {isFrendsOpen && (<Friends FriendsAnim={FriendsAnim} />)}
+      {isFrendsOpen && (<Friends FriendsAnim={FriendsAnim} invite={invite} />)}
 
     </div>
   );
