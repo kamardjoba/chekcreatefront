@@ -46,7 +46,7 @@ function App() {
       if (response.status === 200) {
         setCoins(data.coins);
         setHasTelegramPremium(data.hasTelegramPremium);
-        setHasCheckedSubscription(data.hasCheckedSubscription);
+       
 
         // Calculate coins for account age and subscription separately
         const accountCreationDate = new Date(data.accountCreationDate);
