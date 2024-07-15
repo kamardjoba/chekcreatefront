@@ -34,8 +34,7 @@ function App() {
   const [FriendsAnim, setFriendsAnim] = useState(false);
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
-  const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo"; 
-  const Tg_Channel_Open_chek = () => { window.location.href = TG_CHANNEL_LINK; };
+  const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo";
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
   const fetchUserData = async (userId) => {
@@ -53,18 +52,25 @@ function App() {
       console.error('Ошибка при получении данных пользователя:', error);
     }
   };
-  
+
   useEffect(() => {
-    if (window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.expand();
-  
+    const checkSubscriptionStatus = async () => {
       const userId = new URLSearchParams(window.location.search).get('userId');
       if (userId) {
-        fetchUserData(userId);
+        await fetchUserData(userId);
       }
-    }
+    };
+
+    window.addEventListener('focus', checkSubscriptionStatus);
+
+    return () => {
+      window.removeEventListener('focus', checkSubscriptionStatus);
+    };
   }, []);
+
+  const Tg_Channel_Open_chek = () => {
+    window.location.href = TG_CHANNEL_LINK;
+  };
 
   const handleHome = () => {
     setFriendsAnim(true);
