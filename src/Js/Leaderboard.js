@@ -186,7 +186,9 @@ import '../Css/Leaderboard.css';
 
 import ib from '../IMG/Av/IB.png';
 import logo from '../IMG/All_Logo/LBoard.png';
-
+import first from '../IMG/LbBoard/first.png';
+import second from '../IMG/LbBoard/sekond.png';
+import third from '../IMG/LbBoard/last.png';
 
 const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
@@ -250,12 +252,12 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         </div>
         <div className='Lb_list'>
           {leaderboard.map((user, index) => (
-            <div key={user.telegramId} className='Lb_Lider'>
+            <div key={user._id} className='Lb_Lider'>
               <div className='LbPhotos'>
                 <img src={ib} alt='ib'/>
               </div>
               <div className='tt'>
-                <p>User {user.telegramId}</p>
+                <p>{user.nickname}</p>
                 <p id='LbColorr'>{user.coins} OCTIES</p>
               </div>
               <div className='LbPhotos' id="medal">
