@@ -25,6 +25,8 @@ function App() {
   const [coins, setCoins] = useState(0);
   const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
   const [hasCheckedSubscription, setHasCheckedSubscription] = useState(false);
+  const [accountAgeCoins, setAccountAgeCoins] = useState(0);
+  const [subscriptionCoins, setSubscriptionCoins] = useState(0);
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
@@ -37,7 +39,7 @@ function App() {
   const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo";
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
-  const fulcoins = coins + hasCheckedSubscription;
+
   const fetchUserData = async (userId) => {
     try {
       const response = await axios.post(`${REACT_APP_BACKEND_URL}/get-coins`, { userId });
@@ -46,6 +48,17 @@ function App() {
         setCoins(data.coins);
         setHasTelegramPremium(data.hasTelegramPremium);
         setHasCheckedSubscription(data.hasCheckedSubscription);
+
+        // Calculate coins for account age and subscription separately
+        const accountCreationDate = new Date(data.accountCreationDate);
+        const currentYear = new Date().getFullYear();
+        const accountYear = accountCreationDate.getFullYear();
+        const yearsOld = currentYear - accountYear;
+        const accountAgeCoins = yearsOld * 500;
+        const subscriptionCoins = data.hasCheckedSubscription ? 1000 : 0;
+
+        setAccountAgeCoins(accountAgeCoins);
+        setSubscriptionCoins(subscriptionCoins);
       } else {
         console.error('Ошибка при получении данных пользователя:', data.error);
       }
@@ -55,19 +68,12 @@ function App() {
   };
 
   useEffect(() => {
-    const checkSubscriptionStatus = async () => {
-      const userId = new URLSearchParams(window.location.search).get('userId');
-      if (userId) {
-        await fetchUserData(userId);
-      }
-    };
-
-    window.addEventListener('focus', checkSubscriptionStatus);
-
-    return () => {
-      window.removeEventListener('focus', checkSubscriptionStatus);
-    };
+    const userId = new URLSearchParams(window.location.search).get('userId');
+    if (userId) {
+      fetchUserData(userId);
+    }
   }, []);
+
 
   const Tg_Channel_Open_chek = () => {
     window.location.href = TG_CHANNEL_LINK;
@@ -114,7 +120,7 @@ function App() {
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
-        <p>{fulcoins} OCTIES</p>
+        <p>{coins} OCTIES</p>
       </div>
       <div className='Menu'>
         <div className='MenuBorder'>
@@ -134,7 +140,7 @@ function App() {
               <img src={TS1} alt='TS1' /> <p id='txt'>Account age</p>
             </div>
             <div className='tsPhoto'>
-              <p>{coins} OCTIES</p>
+              <p>{accountAgeCoins} OCTIES</p>
             </div>
           </div>
 
@@ -143,7 +149,7 @@ function App() {
               <img src={TS2} alt='TS2' /> <p id='txt'>Telegram Premium</p>
             </div>
             <div className='tsPhoto'>
-              <p>+{hasTelegramPremium ? 500 : 0} OCTIES</p>
+              <p>+{subscriptionCoins} OCTIES</p>
             </div>
           </div>
 
