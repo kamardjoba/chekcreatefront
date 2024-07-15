@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../Css/App.css';
 import axios from 'axios';
 
@@ -159,7 +159,7 @@ function App() {
               <img src={TS2} alt='TS2' /> <p id='txt'>Telegram Premium</p>
             </div>
             <div className='tsPhoto'>
-              <p>+{hasTelegramPremium ? 500 : 0} OCTIES</p>
+              <p>+{hasTelegramPremium ? 500 : 300} OCTIES</p>
             </div>
           </div>
 
