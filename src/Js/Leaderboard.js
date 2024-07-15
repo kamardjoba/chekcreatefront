@@ -255,7 +255,7 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
                 <img src={ib} alt='ib'/>
               </div>
               <div className='tt'>
-                <p>{user.nickname}</p>
+                <p>{user.firstName} ({user.nickname})</p>
                 <p id='LbColorr'>{user.coins} OCTIES</p>
               </div>
               <div className='LbPhotos' id="medal">
