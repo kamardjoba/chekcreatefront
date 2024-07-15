@@ -37,6 +37,7 @@ function App() {
   const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo";
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
+  const fulcoins = coins + hasCheckedSubscription;
   const fetchUserData = async (userId) => {
     try {
       const response = await axios.post(`${REACT_APP_BACKEND_URL}/get-coins`, { userId });
@@ -113,7 +114,7 @@ function App() {
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
-        <p>{coins} OCTIES</p>
+        <p>{fulcoins} OCTIES</p>
       </div>
       <div className='Menu'>
         <div className='MenuBorder'>
