@@ -2,12 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Css/Leaderboard.css';
 
-import ib from '../IMG/Av/IB.png';
-import logo from '../IMG/All_Logo/LBoard.png';
-// import first from '../IMG/LbBoard/first.png';
-// import second from '../IMG/LbBoard/sekond.png';
-// import third from '../IMG/LbBoard/last.png';
-
 const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
 const Leaderboard = ({ LeaderboardAnim, userId }) => {
@@ -45,9 +39,6 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
     fetchUserRank();
   }, [userId]);
 
-
-  
-
   const getMedal = (index) => {
     switch (index) {
       case 0:
@@ -61,6 +52,15 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
     }
   };
 
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
   return (
     <div className={`Lb_Window ${LeaderboardAnim ? 'fade-out' : ''}`}>
       <div className='lb_Info'>
@@ -70,7 +70,7 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
       <div className='Lb_Menu'>
         <div className='LbBorder'>
           <div className='Lb_Logo'>
-            <img src={logo} alt='logo'/>
+            <img src='/path/to/logo.png' alt='logo'/>
           </div>
           <div className='Lb_Text'>
             <p>🥇The 1st holder will get 400,000 OCTIES</p>
@@ -80,9 +80,12 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
         </div>
 
         <div className='Lb_inside'>
-        <div className='LbPhoto'>
-             <img src={ib} alt='ib'/><p> Current User <br/><span id='LbColor'>{userRank ? `Rank: ${userRank}` : 'Loading...'}</span></p>
-        </div>
+          <div className='LbPhoto'>
+            <div style={{backgroundColor: getRandomColor(), borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', color: 'white'}}>
+              {userRank ? `#${userRank}` : '??'}
+            </div>
+            <p> Current User <br/><span id='LbColor'>{userRank ? `Rank: ${userRank}` : 'Loading...'}</span></p>
+          </div>
         </div>
       
         <div className='Lb_Liders'>
@@ -92,7 +95,9 @@ const Leaderboard = ({ LeaderboardAnim, userId }) => {
           {leaderboard.map((user, index) => (
             <div key={user._id} className='Lb_Lider'>
               <div className='LbPhotos'>
-                <img src={ib} alt='ib'/>
+                <div style={{backgroundColor: getRandomColor(), borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', color: 'white'}}>
+                  {user.nickname.slice(0, 2).toUpperCase()}
+                </div>
               </div>
               <div className='tt'>
                 <p>{user.firstName} {user.nickname}</p>
