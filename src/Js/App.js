@@ -34,6 +34,8 @@ function App() {
   const [FriendsAnim, setFriendsAnim] = useState(false);
   const [LeaderboardAnim, setLeaderboardAnim] = useState(false);
   const [app, setApp] = useState(false);
+  const TG_CHANNEL_LINK = "https://t.me/GOGOGOGOGOGOGOGgogogooo"; 
+  const Tg_Channel_Open_chek = () => { window.location.href = TG_CHANNEL_LINK; };
   const REACT_APP_BACKEND_URL = 'https://octiesback-production.up.railway.app';
 
   const fetchUserData = async (userId) => {
@@ -112,7 +114,7 @@ function App() {
           <p id='up'>OCTIES COMMUNITY</p>
           <p id='dp'>Home for Telegram OCs</p>
           <div className='MenuBtn'>
-            <button>Join</button>
+            <button  onClick={Tg_Channel_Open_chek}>Join</button>
             <p>+ 1000 OCTIES</p>
           </div>
         </div>
