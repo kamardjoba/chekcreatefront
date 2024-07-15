@@ -24,6 +24,7 @@ import invite from '../IMG/All_Logo/Invite_png.png';
 function App() {
   const [coins, setCoins] = useState(0);
   const [hasTelegramPremium, setHasTelegramPremium] = useState(false);
+  const [hasCheckedSubscription, setHasCheckedSubscription] = useState(false);
 
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
   const [isFrendsOpen, setIsFrendsOpen] = useState(false);
@@ -42,6 +43,7 @@ function App() {
       if (response.status === 200) {
         setCoins(data.coins);
         setHasTelegramPremium(data.hasTelegramPremium);
+        setHasCheckedSubscription(data.hasCheckedSubscription);
       } else {
         console.error('Ошибка при получении данных пользователя:', data.error);
       }
@@ -103,7 +105,7 @@ function App() {
         <img src={Octo} alt='Octo' />
       </div>
       <div className='MainCoin'>
-        <p>122000 OCTIES</p>
+        <p>{coins} OCTIES</p>
       </div>
       <div className='Menu'>
         <div className='MenuBorder'>
@@ -141,7 +143,7 @@ function App() {
               <img src={TS3} alt='TS3' /> <p id='txt'>Channel Subscription</p>
             </div>
             <div className='tsPhoto'>
-              <p>+1,000 OCTIES</p>
+              <p>+{hasCheckedSubscription ? 1000 : 0} OCTIES</p>
             </div>
           </div>
 
